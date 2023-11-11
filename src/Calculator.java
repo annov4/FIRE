@@ -12,11 +12,9 @@ public class Calculator {
 
             for (int i = startYear - 2001; i <= 20; i++) {
                 // Расчет расходов
-                baseExpenses = baseExpenses * (1 + inflationRate[i - 1]);
-                // Расчет доходов (прироста капитала) за текущий год
-                capital = capital - baseExpenses;
+                baseExpenses = baseExpenses * (1 + inflationRate[i - 1] / 100);
                 // Расчет нового капитала после вычета расходов и добавления доходов
-                capital = capital * (1 + (moexIndex[i] - moexIndex[i - 1] / moexIndex[i - 1]));
+                capital = capital * (1 + (moexIndex[i] - moexIndex[i - 1]) / moexIndex[i - 1]) - baseExpenses;
             }
             if (capital > 0) {
                 maxWithdrawalPercent += 0.5;
