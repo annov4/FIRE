@@ -1,13 +1,16 @@
 public class Calculator {
-    public static double fireCalculator(int startYear) {
-        int currentYear = startYear - 2001;
-        double maxWithdrawalPercent = 0.5;
+    public static double fireCalculator(int currentYear) {
+        int baseYear = 2001; // переменная для хранения базового года, с 2002 мы начинаем копить
+        int startYear = currentYear - baseYear;
+        double percentVariable = 0.5; // процентная переменная, устнавливаем шаг, с которым будет меняться максимальный процент
+        double maxWithdrawalPercent = 0;
+        maxWithdrawalPercent += percentVariable;
         double capital = 1;
         double baseExpenses;
         while (capital > 0) {
             capital = 100;
             baseExpenses = capital * maxWithdrawalPercent / 100;
-            for (int indexYear = currentYear; indexYear <= Constants.INFLATION_RATE.length; indexYear++) {
+            for (int indexYear = startYear; indexYear < Constants.INFLATION_RATE.length; indexYear++) {
 
                 double stockIndex = calculateStockIndex(indexYear);
                 double inflationRate = calculateInflationRate(indexYear);
@@ -17,7 +20,7 @@ public class Calculator {
                 capital = currentCapital;
             }
 
-            maxWithdrawalPercent = calculateMaxWithdrawalPercent(maxWithdrawalPercent, capital);
+            maxWithdrawalPercent = calculateMaxWithdrawalPercent(maxWithdrawalPercent, capital, percentVariable);
         }
         return maxWithdrawalPercent;
     }
@@ -44,12 +47,12 @@ public class Calculator {
         return capital;
     }
 
-    private static double calculateMaxWithdrawalPercent(double maxWithdrawalPercent, double currentCapital) {
+    private static double calculateMaxWithdrawalPercent(double maxWithdrawalPercent, double currentCapital, double percentVariable ) {
         if (currentCapital > 0) {
-            maxWithdrawalPercent += 0.5;
+            return maxWithdrawalPercent += percentVariable;
         } else {
-            maxWithdrawalPercent -= 0.5;
+            return maxWithdrawalPercent -= percentVariable;
         }
-        return maxWithdrawalPercent;
+
     }
 }
