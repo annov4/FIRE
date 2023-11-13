@@ -7,7 +7,7 @@ public class Calculator {
             double baseExpenses = capital * maxWithdrawalPercent / 100;
             capital = 1;
 
-            for (int indexYear = currentYear; indexYear <= 20; indexYear++) {
+            for (int indexYear = currentYear; indexYear <= Constants.INFLATION_RATE.length; indexYear++) {
 
                 double stockIndex = calculateStockIndex(indexYear);
                 double inflationRate = calculateInflationRate(indexYear);
