@@ -9,7 +9,6 @@ public class Calculator {
 
             for (int indexYear = currentYear; indexYear <= 20; indexYear++) {
 
-
                 double stockIndex = calculateStockIndex(indexYear);
                 double inflationRate = calculateInflationRate(indexYear);
                 double updatedBaseExpenses = calculateUpdatedBaseExpenses(baseExpenses, inflationRate);
