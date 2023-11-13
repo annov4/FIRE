@@ -1,41 +1,44 @@
 public class Calculator {
     public static double fireCalculator(int startYear) {
-        int currentYear = startYear;
+        int indexYear = startYear - 2002;
         double maxWithdrawalPercent = 0;
-        double currentCapital = 1;
-        while (currentYear <= 2022  || currentCapital > 0) {
-            double stockIndex = calculateStockIndex(currentYear);
-            double inflationRate = calculateInflationRate(currentYear);
-            double baseExpenses = calculateBaseExpenses(currentCapital, inflationRate);
-            double withdrawalPercent = calculateWithdrawalPercent(currentYear, baseExpenses, stockIndex);
+        double capital = 1;
+        while (indexYear <= 20) {
+            double stockIndex = calculateStockIndex(indexYear);
+            double inflationRate = calculateInflationRate(indexYear);
+            double baseExpenses = capital * maxWithdrawalPercent / 100;
+            double currentCapital = calculateCurrentCapital(capital,stockIndex,baseExpenses);
+            double updatedBaseExpenses = calculateUpdatedBaseExpenses(baseExpenses, inflationRate);
 
-            if (withdrawalPercent > maxWithdrawalPercent) {
-                maxWithdrawalPercent = withdrawalPercent;
+            if (currentCapital > 0) {
+                maxWithdrawalPercent += 0.5;
+            } else {
+                maxWithdrawalPercent -= 0.5;
             }
-            currentCapital -= baseExpenses;
-            currentYear++;
+
+            indexYear++;
         }
+
         return maxWithdrawalPercent;
     }
 
-    private static double calculateStockIndex(int currentYear) {
+    private static double calculateStockIndex(int indexYear) {
         //расчет индекса московской биржи на текущий год
-        double stockIndex = (Constants.MOEX_RATE[currentYear] - Constants.MOEX_RATE[currentYear - 1]) / Constants.MOEX_RATE[currentYear - 1];
+        double stockIndex = (Constants.MOEX_RATE[indexYear] - Constants.MOEX_RATE[indexYear - 1]) / Constants.MOEX_RATE[indexYear - 1];
         return stockIndex;
     }
 
-    private static double calculateInflationRate(int currentYear) {
-        double inflationRate = Constants.INFLATION_RATE[currentYear];
+    private static double calculateInflationRate(int indexYear) {
+        double inflationRate = Constants.INFLATION_RATE[indexYear - 1];
         return inflationRate;
     }
 
-    private static double calculateBaseExpenses(double currentCapital, double inflationRate) {
-        return currentCapital * (1 + inflationRate / 100);
+    private static double calculateUpdatedBaseExpenses(double baseExpenses, double inflationRate) {
+        double updatedBaseExpenses = baseExpenses * (1 + inflationRate / 100);
+        return updatedBaseExpenses;
     }
-
-    private static double calculateWithdrawalPercent(int currentYear, double baseExpenses, double stockIndex) {
-        double withdrawalPercent = (1 - baseExpenses) * 100;
-        return withdrawalPercent;
+    private static double calculateCurrentCapital(double capital, double stockIndex, double updatedBaseExpenses) {
+        double currentCapital = capital * (1 + stockIndex) - updatedBaseExpenses;
+        return currentCapital;
     }
 }
-
