@@ -1,6 +1,6 @@
 public class Calculator {
     public static double fireCalculator(int currentYear) {
-        final int BASE_YEAR = 2001; // переменная для хранения базового года, с 2002 мы начинаем копить
+        final int BASE_YEAR = 2001; // переменная для подсчета индекса года, где 2002 = 1 и т.д.
         int startYear = currentYear - BASE_YEAR;
         final double PERCENT_VARIABLE = 0.5; // процентная переменная, устнавливаем шаг, с которым будет меняться максимальный процент
         double maxWithdrawalPercent = 0;
