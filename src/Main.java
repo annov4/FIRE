@@ -5,13 +5,13 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите год");
         try {
-            int startYear = scanner.nextInt();
+            int currentYear = scanner.nextInt();
 
-            if (startYear < 2002 || startYear > 2021) {
+            if (currentYear < 2002 || currentYear > 2021) {
                 throw new IllegalArgumentException("\n" +
                         "Введите год с 2002 по 2021");
             }
-            System.out.println(Calculator.fireCalculator(startYear));
+            System.out.println(Calculator.fireCalculator(currentYear));
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
             scanner.close();

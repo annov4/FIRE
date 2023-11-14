@@ -1,10 +1,10 @@
 public class Calculator {
     public static double fireCalculator(int currentYear) {
-        int baseYear = 2001; // переменная для хранения базового года, с 2002 мы начинаем копить
-        int startYear = currentYear - baseYear;
-        double percentVariable = 0.5; // процентная переменная, устнавливаем шаг, с которым будет меняться максимальный процент
+        final int BASE_YEAR = 2001; // переменная для хранения базового года, с 2002 мы начинаем копить
+        int startYear = currentYear - BASE_YEAR;
+        final double PERCENT_VARIABLE = 0.5; // процентная переменная, устнавливаем шаг, с которым будет меняться максимальный процент
         double maxWithdrawalPercent = 0;
-        maxWithdrawalPercent += percentVariable;
+        maxWithdrawalPercent += PERCENT_VARIABLE;
         double capital = 1;
         double baseExpenses;
         while (capital > 0) {
@@ -20,7 +20,7 @@ public class Calculator {
                 capital = currentCapital;
             }
 
-            maxWithdrawalPercent = calculateMaxWithdrawalPercent(maxWithdrawalPercent, capital, percentVariable);
+            maxWithdrawalPercent = calculateMaxWithdrawalPercent(maxWithdrawalPercent, capital, PERCENT_VARIABLE);
         }
         return maxWithdrawalPercent;
     }
@@ -47,11 +47,11 @@ public class Calculator {
         return capital;
     }
 
-    private static double calculateMaxWithdrawalPercent(double maxWithdrawalPercent, double currentCapital, double percentVariable ) {
+    private static double calculateMaxWithdrawalPercent(double maxWithdrawalPercent, double currentCapital, double PERCENT_VARIABLE ) {
         if (currentCapital > 0) {
-            return maxWithdrawalPercent += percentVariable;
+            return maxWithdrawalPercent + PERCENT_VARIABLE;
         } else {
-            return maxWithdrawalPercent -= percentVariable;
+            return maxWithdrawalPercent - PERCENT_VARIABLE;
         }
 
     }
